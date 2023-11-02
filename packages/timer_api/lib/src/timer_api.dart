@@ -33,7 +33,7 @@ abstract class TimerApi {
   // Sessions //
   // ******** //
 
-  /// Gets all sessions
+  /// Gets all tasks
   ///
   /// Emits a new task list whenever the sessions are updated.
   Stream<List<Session>> getSessions();
