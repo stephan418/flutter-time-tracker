@@ -40,7 +40,7 @@ abstract class TimerApi {
   /// Gets the running duration of all sessions
   ///
   /// Emits a new value whenever the sessions are updated.
-  Stream<int> getAllTimeSessionDuration();
+  Stream<int?> getAllTimeSessionDuration();
 
   /// Saves or updates a single session
   ///

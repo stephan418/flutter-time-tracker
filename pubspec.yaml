@@ -14,6 +14,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.0
+  local_timer_api:
+    path: packages/local_timer_api
 
 dev_dependencies:
   bloc_test: ^9.1.4
