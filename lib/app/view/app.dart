@@ -1,22 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:time_tracker/counter/counter.dart';
-import 'package:time_tracker/l10n/l10n.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:time_tracker/app/routes/routes.dart';
+import 'package:time_tracker/theme/theme.dart';
+import 'package:timer_repository/timer_repository.dart';
 
+/// App entrypoint widget
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({
+    required this.sessionRepository,
+    required this.taskRepository,
+    super.key,
+  });
+
+  final SessionRepository sessionRepository;
+  final TaskRepository taskRepository;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        ),
-        useMaterial3: true,
-      ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+    // Provide all repositories to the entire widget tree
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: sessionRepository),
+        RepositoryProvider.value(value: taskRepository),
+      ],
+      child: const AppView(),
+    );
+  }
+}
+
+class AppView extends StatelessWidget {
+  const AppView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      theme: TimeTrackerTheme.light,
+      darkTheme: TimeTrackerTheme.dark,
+      routerConfig: goRouterConfig,
     );
   }
 }

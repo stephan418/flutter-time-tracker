@@ -13,14 +13,19 @@ dependencies:
   flutter_bloc: ^8.1.3
   flutter_localizations:
     sdk: flutter
+  go_router: ^12.0.1
   intl: ^0.18.0
   local_timer_api:
     path: packages/local_timer_api
+  timer_repository:
+    path: packages/timer_repository
 
 dev_dependencies:
   bloc_test: ^9.1.4
+  build_runner: ^2.4.6
   flutter_test:
     sdk: flutter
+  go_router_builder: ^2.3.4
   mocktail: ^1.0.0
   very_good_analysis: ^5.1.0
 

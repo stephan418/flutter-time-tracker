@@ -1,6 +1,14 @@
-import 'package:time_tracker/app/app.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:local_timer_api/local_timer_api.dart';
 import 'package:time_tracker/bootstrap.dart';
 
+/// Staging entry point
+///
+/// Sets up any staging specific configuration
 void main() {
-  bootstrap(() => const App());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final timerApi = LocalTimerApi(database: AppDatabase());
+
+  bootstrap(timerApi: timerApi);
 }
