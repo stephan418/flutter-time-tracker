@@ -17,22 +17,27 @@ class LocalTimerApi extends TimerApi {
   }
 
   @override
-  Future<void> saveOrUpdateTask(Task task) {
-    if (task.id == null) {
-      return _database.into(_database.taskItems).insert(
-            TaskItemsCompanion.insert(
-              title: task.title,
-              description: task.description,
-            ),
-          );
-    } else {
-      return (_database.update(_database.taskItems)
-            ..where((table) => table.id.equals(task.id!)))
-          .write(
-        TaskItemsCompanion.insert(
-            title: task.title, description: task.description),
-      );
-    }
+  Future<void> saveTask(Task task) {
+    assert(task.id == null, 'a newly saved task cannot have an id');
+
+    return _database.into(_database.taskItems).insert(
+          TaskItemsCompanion.insert(
+            title: task.title,
+            description: task.description,
+          ),
+        );
+  }
+
+  @override
+  Future<void> updateTask(Task task) {
+    assert(task.id != null, 'an updated task must have an id');
+
+    return (_database.update(_database.taskItems)
+          ..where((table) => table.id.equals(task.id!)))
+        .write(
+      TaskItemsCompanion.insert(
+          title: task.title, description: task.description),
+    );
   }
 
   @override
@@ -58,26 +63,31 @@ class LocalTimerApi extends TimerApi {
   }
 
   @override
-  Future<void> saveOrUpdateSession(Session session) {
-    if (session.id == null) {
-      return _database.into(_database.sessionItems).insert(
-            SessionItemsCompanion.insert(
-              seconds: session.seconds,
-              startedAt: session.startedAt,
-              taskId: Value(session.taskId),
-            ),
-          );
-    } else {
-      return (_database.update(_database.sessionItems)
-            ..where((table) => table.id.equals(session.id!)))
-          .write(
-        SessionItemsCompanion.insert(
-          seconds: session.seconds,
-          startedAt: session.startedAt,
-          taskId: Value(session.taskId),
-        ),
-      );
-    }
+  Future<void> saveSession(Session session) {
+    assert(session.id == null, 'a newly saved session cannot have an id');
+
+    return _database.into(_database.sessionItems).insert(
+          SessionItemsCompanion.insert(
+            seconds: session.seconds,
+            startedAt: session.startedAt,
+            taskId: Value(session.taskId),
+          ),
+        );
+  }
+
+  @override
+  Future<void> updateSession(Session session) {
+    assert(session.id != null, 'an updated session must have an id');
+
+    return (_database.update(_database.sessionItems)
+          ..where((table) => table.id.equals(session.id!)))
+        .write(
+      SessionItemsCompanion.insert(
+        seconds: session.seconds,
+        startedAt: session.startedAt,
+        taskId: Value(session.taskId),
+      ),
+    );
   }
 
   @override

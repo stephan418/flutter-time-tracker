@@ -20,10 +20,11 @@ abstract class TimerApi {
   /// Emits a new task list whenever the tasks are updated.
   Stream<List<Task>> getTasks();
 
-  /// Saves or updates a single task
-  ///
-  /// If the task has an id, it is deemed existing and is updated.
-  Future<void> saveOrUpdateTask(Task task);
+  /// Saves a single task which must have a null id
+  Future<void> saveTask(Task task);
+
+  /// Updates a single task by its id.
+  Future<void> updateTask(Task task);
 
   /// Deletes a single task by its id
   Future<void> deleteTask(String id);
@@ -42,11 +43,12 @@ abstract class TimerApi {
   /// Emits a new value whenever the sessions are updated.
   Stream<int?> getAllTimeSessionDuration();
 
-  /// Saves or updates a single session
-  ///
-  /// If the session has an id, it is deemed existing and is updated.
-  Future<void> saveOrUpdateSession(Session session);
+  /// Saves a single session which must have a null id
+  Future<void> saveSession(Session session);
 
-  /// Deletes a single session by its id.
+  /// Updates a single session by its id
+  Future<void> updateSession(Session session);
+
+  /// Deletes a single session by its id
   Future<void> deleteSession(String id);
 }
