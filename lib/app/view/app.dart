@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:time_tracker/app/routes/routes.dart';
 import 'package:time_tracker/theme/theme.dart';
+import 'package:time_tracker/ticker/bloc/ticker_bloc.dart';
+import 'package:time_tracker/ticker/ticker.dart';
 import 'package:timer_repository/timer_repository.dart';
 
 /// App entrypoint widget
@@ -23,7 +25,10 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: sessionRepository),
         RepositoryProvider.value(value: taskRepository),
       ],
-      child: const AppView(),
+      child: BlocProvider<TickerBloc>(
+        create: (context) => TickerBloc(ticker: const Ticker()),
+        child: const AppView(),
+      ),
     );
   }
 }

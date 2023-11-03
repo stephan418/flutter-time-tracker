@@ -1,0 +1,24 @@
+name: local_preferences_api
+description: A Very Good Project created by Very Good CLI.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.9.1
+  rxdart: ^0.27.7
+  preferences_api:
+    path: ../preferences_api
+  json_annotation: ^4.8.1
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.0
+  very_good_analysis: ^5.1.0

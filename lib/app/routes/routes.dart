@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:time_tracker/app/widgets/shell_scaffold_with_navbar.dart';
+import 'package:time_tracker/timer/view/view.dart';
 
 part 'routes.g.dart';
 
@@ -11,7 +12,7 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final goRouterConfig = GoRouter(
   routes: $appRoutes,
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/tasks',
+  initialLocation: '/timer',
 );
 
 @immutable
@@ -19,8 +20,7 @@ class TimerRoute extends GoRouteData {
   const TimerRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const Placeholder();
+  Widget build(BuildContext context, GoRouterState state) => const TimerPage();
 }
 
 @immutable
