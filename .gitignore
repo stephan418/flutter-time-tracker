@@ -117,3 +117,4 @@ app.*.map.json
 
 # Melos
 pubspec_overrides.yaml
+.idea/runConfigurations/melos_*.xml
