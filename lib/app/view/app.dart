@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:preferences_repository/preferences_repository.dart';
 import 'package:time_tracker/app/routes/routes.dart';
 import 'package:time_tracker/theme/theme.dart';
 import 'package:time_tracker/ticker/bloc/ticker_bloc.dart';
@@ -11,11 +12,13 @@ class App extends StatelessWidget {
   const App({
     required this.sessionRepository,
     required this.taskRepository,
+    required this.preferencesRepository,
     super.key,
   });
 
   final SessionRepository sessionRepository;
   final TaskRepository taskRepository;
+  final PreferencesRepository preferencesRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: sessionRepository),
         RepositoryProvider.value(value: taskRepository),
+        RepositoryProvider.value(value: preferencesRepository),
       ],
       child: BlocProvider<TickerBloc>(
         create: (context) => TickerBloc(ticker: const Ticker()),

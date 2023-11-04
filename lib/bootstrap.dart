@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:local_preferences_api/local_preferences_api.dart';
 import 'package:local_timer_api/local_timer_api.dart';
+import 'package:preferences_repository/preferences_repository.dart';
 import 'package:time_tracker/app/app.dart';
 import 'package:timer_repository/timer_repository.dart';
 
@@ -24,7 +26,10 @@ class AppBlocObserver extends BlocObserver {
 }
 
 /// Sets up any flavor-independent configuration and bootstraps the app
-Future<void> bootstrap({required TimerApi timerApi}) async {
+Future<void> bootstrap({
+  required TimerApi timerApi,
+  required PreferencesApi preferencesApi,
+}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
@@ -33,8 +38,13 @@ Future<void> bootstrap({required TimerApi timerApi}) async {
 
   final taskRepository = TaskRepository(api: timerApi);
   final sessionRepository = SessionRepository(api: timerApi);
+  final preferencesRepository = PreferencesRepository(api: preferencesApi);
 
   runApp(
-    App(taskRepository: taskRepository, sessionRepository: sessionRepository),
+    App(
+      taskRepository: taskRepository,
+      sessionRepository: sessionRepository,
+      preferencesRepository: preferencesRepository,
+    ),
   );
 }

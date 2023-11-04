@@ -33,6 +33,18 @@ final class TimerReset extends TimerEvent {
   const TimerReset();
 }
 
+final class TimerTaskSelected extends TimerEvent {
+  const TimerTaskSelected({this.taskId});
+
+  final String? taskId;
+}
+
+final class _TimerTaskReloadRequested extends TimerEvent {
+  const _TimerTaskReloadRequested({this.taskId});
+
+  final String? taskId;
+}
+
 final class _TimerSaveRequested extends TimerEvent {
   const _TimerSaveRequested();
 }

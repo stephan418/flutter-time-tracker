@@ -17,6 +17,13 @@ class LocalTimerApi extends TimerApi {
   }
 
   @override
+  Stream<Task?> getTask(String id) {
+    return (_database.select(_database.taskItems)
+          ..where((table) => table.id.equals(id)))
+        .watchSingleOrNull();
+  }
+
+  @override
   Future<void> saveTask(Task task) {
     assert(task.id == null, 'a newly saved task cannot have an id');
 
@@ -36,7 +43,9 @@ class LocalTimerApi extends TimerApi {
           ..where((table) => table.id.equals(task.id!)))
         .write(
       TaskItemsCompanion.insert(
-          title: task.title, description: task.description),
+        title: task.title,
+        description: task.description,
+      ),
     );
   }
 
@@ -58,6 +67,17 @@ class LocalTimerApi extends TimerApi {
 
     final query = _database.selectOnly(_database.sessionItems)
       ..addColumns([totalSeconds]);
+
+    return query.map((row) => row.read(totalSeconds) ?? 0).watchSingle();
+  }
+
+  @override
+  Stream<int> getAllTimeSessionDurationByTaskId(String taskId) {
+    final totalSeconds = _database.sessionItems.seconds.sum();
+
+    final query = _database.selectOnly(_database.sessionItems)
+      ..addColumns([totalSeconds])
+      ..where(_database.sessionItems.taskId.equals(taskId));
 
     return query.map((row) => row.read(totalSeconds) ?? 0).watchSingle();
   }

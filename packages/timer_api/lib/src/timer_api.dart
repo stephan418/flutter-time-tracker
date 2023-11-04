@@ -20,6 +20,11 @@ abstract class TimerApi {
   /// Emits a new task list whenever the tasks are updated.
   Stream<List<Task>> getTasks();
 
+  /// Gets a single task by id
+  ///
+  /// Emits a new task whenever the selected task is updated.
+  Stream<Task?> getTask(String id);
+
   /// Saves a single task which must have a null id
   Future<void> saveTask(Task task);
 
@@ -41,7 +46,12 @@ abstract class TimerApi {
   /// Gets the running duration of all sessions
   ///
   /// Emits a new value whenever the sessions are updated.
-  Stream<int?> getAllTimeSessionDuration();
+  Stream<int> getAllTimeSessionDuration();
+
+  /// Gets the running duration of all session with a given taskId
+  ///
+  /// Emits a new value whenever one of the sessions is updated.
+  Stream<int> getAllTimeSessionDurationByTaskId(String taskId);
 
   /// Saves a single session which must have a null id
   Future<void> saveSession(Session session);

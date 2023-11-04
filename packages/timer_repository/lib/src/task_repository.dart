@@ -14,6 +14,11 @@ class TaskRepository {
   /// Updates a new task list whenever the tasks are updated.
   Stream<List<Task>> getTasks() => _api.getTasks();
 
+  /// Get a single task
+  ///
+  /// Emits a new task whenever the selected task is updated.
+  Stream<Task?> getTask(String id) => _api.getTask(id);
+
   /// Saves or updates a task
   ///
   /// If the task's id is set, it is presumed already existing and updated

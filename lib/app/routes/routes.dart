@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:local_timer_api/local_timer_api.dart';
 import 'package:time_tracker/app/widgets/shell_scaffold_with_navbar.dart';
+import 'package:time_tracker/edit_task/view/edit_task_page.dart';
+import 'package:time_tracker/stats/view/stats_page.dart';
+import 'package:time_tracker/tasks/view/tasks_page.dart';
 import 'package:time_tracker/timer/view/view.dart';
 
 part 'routes.g.dart';
@@ -28,8 +32,31 @@ class TasksRoute extends GoRouteData {
   const TasksRoute();
 
   @override
+  Widget build(BuildContext context, GoRouterState state) => const TasksPage();
+}
+
+@immutable
+class TaskEditRoute extends GoRouteData {
+  const TaskEditRoute(this.$extra);
+
+  final Task $extra;
+
+  static final $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => EditTaskPage(
+        taskToEdit: $extra,
+      );
+}
+
+class TaskAddRoute extends GoRouteData {
+  const TaskAddRoute();
+
+  static final $parentNavigatorKey = _rootNavigatorKey;
+
+  @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const Placeholder();
+      const EditTaskPage();
 }
 
 @immutable
@@ -37,8 +64,7 @@ class StatsRoute extends GoRouteData {
   const StatsRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const Placeholder();
+  Widget build(BuildContext context, GoRouterState state) => const StatsPage();
 }
 
 /// Typed route configuration
@@ -51,7 +77,15 @@ class StatsRoute extends GoRouteData {
       routes: [TypedGoRoute<TimerRoute>(path: '/timer')],
     ),
     TypedStatefulShellBranch(
-      routes: [TypedGoRoute<TasksRoute>(path: '/tasks')],
+      routes: [
+        TypedGoRoute<TasksRoute>(
+          path: '/tasks',
+          routes: [
+            TypedGoRoute<TaskEditRoute>(path: 'edit'),
+            TypedGoRoute<TaskAddRoute>(path: 'new'),
+          ],
+        ),
+      ],
     ),
     TypedStatefulShellBranch(
       routes: [TypedGoRoute<StatsRoute>(path: '/stats')],

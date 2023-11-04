@@ -17,7 +17,13 @@ class SessionRepository {
   /// Gets the running duration of all sessions
   ///
   /// Emits a new value whenever the sessions are updated.
-  Stream<int?> getAllTimeSessionDuration() => _api.getAllTimeSessionDuration();
+  Stream<int> getAllTimeSessionDuration() => _api.getAllTimeSessionDuration();
+
+  /// Gets the running duration of all session with a given taskId
+  ///
+  /// Emits a new value whenever one of the sessions is updated.
+  Stream<int> getAllTimeSessionDurationByTaskId(String taskId) =>
+      _api.getAllTimeSessionDurationByTaskId(taskId);
 
   /// Saves or updates a session
   ///

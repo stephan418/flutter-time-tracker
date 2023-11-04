@@ -5,20 +5,25 @@ enum TimerStatus { initial, ready, running, stopped }
 final class TimerState extends Equatable {
   const TimerState({
     this.status = TimerStatus.initial,
-    this.sessionLoadStatus = RequestStatus.initial,
+    this.taskLoadStatus = RequestStatus.initial,
+    this.durationLoadStatus = RequestStatus.initial,
     this.saveStatus = RequestStatus.initial,
     this.savedDuration = 0,
     this.elapsedDuration = 0,
     this.startedAt,
+    this.task,
   });
 
   final TimerStatus status;
 
-  final RequestStatus sessionLoadStatus;
+  final RequestStatus taskLoadStatus;
+  final RequestStatus durationLoadStatus;
   final RequestStatus saveStatus;
 
   final int savedDuration;
   final int elapsedDuration;
+
+  final Task? task;
 
   int get totalDuration => savedDuration + elapsedDuration;
 
@@ -26,23 +31,35 @@ final class TimerState extends Equatable {
 
   TimerState copyWith({
     TimerStatus? status,
-    RequestStatus? sessionLoadStatus,
+    RequestStatus? taskLoadStatus,
+    RequestStatus? durationLoadStatus,
     RequestStatus? saveStatus,
-    int? totalDuration,
+    int? savedDuration,
     int? elapsedDuration,
+    Task? Function()? task,
     DateTime? Function()? startedAt,
   }) {
     return TimerState(
       status: status ?? this.status,
-      sessionLoadStatus: sessionLoadStatus ?? this.sessionLoadStatus,
+      taskLoadStatus: taskLoadStatus ?? this.taskLoadStatus,
+      durationLoadStatus: durationLoadStatus ?? this.durationLoadStatus,
       saveStatus: saveStatus ?? this.saveStatus,
-      savedDuration: totalDuration ?? this.savedDuration,
+      savedDuration: savedDuration ?? this.savedDuration,
       elapsedDuration: elapsedDuration ?? this.elapsedDuration,
+      task: task != null ? task() : this.task,
       startedAt: startedAt != null ? startedAt() : this.startedAt,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [status, sessionLoadStatus, saveStatus, savedDuration, elapsedDuration];
+  List<Object?> get props => [
+        status,
+        taskLoadStatus,
+        durationLoadStatus,
+        saveStatus,
+        savedDuration,
+        elapsedDuration,
+        task,
+        startedAt,
+      ];
 }

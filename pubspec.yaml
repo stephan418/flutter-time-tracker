@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
+  bloc_concurrency: ^0.2.2
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -16,8 +17,12 @@ dependencies:
     sdk: flutter
   go_router: ^12.0.1
   intl: ^0.18.0
+  local_preferences_api:
+    path: packages/local_preferences_api
   local_timer_api:
     path: packages/local_timer_api
+  preferences_repository:
+    path: packages/preferences_repository
   timer_repository:
     path: packages/timer_repository
 

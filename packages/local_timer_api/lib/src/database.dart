@@ -57,7 +57,9 @@ class AppDatabase extends _$AppDatabase {
   /// database file.
   ///
   /// The default location for the file is in the users 'Documents' directory
-  AppDatabase() : super(_openConnection());
+  AppDatabase({this.dbFileName}) : super(_openConnection());
+
+  final String? dbFileName;
 
   @override
   int get schemaVersion => 1;
