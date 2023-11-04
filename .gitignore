@@ -114,3 +114,6 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
+
+# Melos
+pubspec_overrides.yaml

@@ -1,0 +1,16 @@
+name: time_tracker
+
+packages:
+  - packages/*
+  - '.'
+
+scripts:
+  build_runner:
+    exec: flutter pub run build_runner build
+    packageFilters:
+      dependsOn: build_runner
+
+command:
+  bootstrap:
+    hooks:
+      post: melos run build_runner --no-select
